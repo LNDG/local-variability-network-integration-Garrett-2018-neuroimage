@@ -161,6 +161,7 @@
  This script subjects each of Shirer's networks to PCA and determines how many dimensions are needed to account for at least 90% of variability (within each network).
 
  Input: /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt_denoised_MNI2mm_flirt_denoised.nii.gz
+ 
  Output: /NKI_enhanced_rest/C_Dimensionality/PCAdimSPAT_14networks/NKI_<ID>_spatialPCAcorr_<NetworkName>_>90variance.mat
 
 3. **D_PCA_factor_calculation_14networks_corticalROIs.m**
@@ -168,6 +169,7 @@
  This script subjects the cortical parts of each of Shirer's networks to PCA, and determines how many dimensions are needed to account for at least 90% of variability. Therefore, as a first step, the Harvard-Oxford cortical atlas is loaded and intersected with each network to determine only cortical network ROIs. 
 
  Input: preprocessed nifti: /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt_denoised_MNI2mm_flirt_denoised.nii.gz; Harvard-Oxford cortical atlas: /NKI_enhanced_rest/G_standards_masks/Harvard-Oxford_atlases/HarvardOxford-cort-maxprob-thr25-2mm.nii
+ 
  Output: /NKI_enhanced_rest/C_Dimensionality/PCAdimSPAT_14networks_cortical/NKI_<ID>_spatialPCAcorr_<NetworkName>_corticalROIs_>90variance.mat
  
 4. **X_readout_PCAdim_results.m**
@@ -175,6 +177,7 @@
 This script loads all single subject's mat files (containing the number of PCA dimensions) and store them in one file, for each of the previous PCA_factor_calculation scripts separately. This mat files can be used for creating the behavioral PLS analysis text files.
 
  Input: /NKI_enhanced_rest/C_Dimensionality/*90variance.mat
+ 
  Output: /NKI_enhanced_rest/C_Dimensionality/PCAdimSPAT_results/NKI_N100_*.mat
  
  
