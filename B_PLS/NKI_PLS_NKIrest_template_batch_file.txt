@@ -1,0 +1,22 @@
+%------------------------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% General Section Start %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+prefix mean_%%%%%%%_NKIrest % prefix for session file and datamat file
+brain_region 0.15 % threshold or file name for brain region
+across_run 1 % 1 for merge data across all run, 0 for within each run
+single_subj 0 % 1 for single subject analysis, 0 for normal analysis
+%------------------------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Condition Section Start %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+cond_name resting_state % condition 1 name
+ref_scan_onset -1 % reference scan onset for condition 1
+num_ref_scan 1 % number of reference scan for condition 1
+
+%------------------------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%
+% Run Section Start %
+%%%%%%%%%%%%%%%%%%%%%%%
+
+data_files
