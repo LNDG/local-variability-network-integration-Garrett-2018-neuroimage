@@ -172,26 +172,21 @@
  
 4. **X_readout_PCAdim_results.m**
 
- This script loads all single subject's mat files (containing the number of PCA dimensions) and store them in one file, for each of the previous steps separately.
+This script loads all single subject's mat files (containing the number of PCA dimensions) and store them in one file, for each of the previous PCA_factor_calculation scripts separately. This mat files can be used for creating the behavioral PLS analysis text files.
 
  Input: /NKI_enhanced_rest/C_Dimensionality/*90variance.mat
  Output: /NKI_enhanced_rest/C_Dimensionality/PCAdimSPAT_results/NKI_N100_*.mat
  
  
- 
 ## Thalamocortical Upregulation
 
-1. **A_test_thalamocortical_upregulation_for_ShirerNetworks.m**
+1. **A_1_test_thalamocortical_upregulation_for_ShirerNetworks.m**
 
- This script test thalamocortical upregulation for each of the 14 Shirer networks. Outputs _thalamocortical_upregulation_for_ShirerNetworks.mat.
+This script test thalamocortical upregulation from Horn's thalamic subdivisions to the cortical parts of each of the 14 Shirer networks. 
 
-
- SD PLS path: NKI_enhanced_rest/B_PLS/SD_NKIrest/
- Output path: NKI_enhanced_rest/D_thalamocortical_upregulation/results/
-
-2. **B_ControlAnalysis_hub_regions_power.m**
-
- This script extracts power in hub regions of each Shirer network. Outputs _hub_regions_power.mat_.
-
- SD PLS path: NKI_enhanced_rest/B_PLS/SD_NKIrest/
- Output path: NKI_enhanced_rest/D_thalamocortical_upregulation/results/
+Input: preprocessed niftis: /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt_denoised_MNI2mm_flirt_denoised.nii.gz; subjects' wholebrain sessiondata.mats: NKI_enhanced_rest/B_PLS/SD_NKIrest/SD_<ID>_NKIrest_SPMdetrend_BfMRIsessiondata.mat; Horn's thalamic subdivisions; Shirer's 14 networks, Harvard-Oxford cortical atlas
+Output: NKI_enhanced_rest/D_thalamocortical_upregulation/results/thalamocortical_upregulation_for_ShirerNetworks.mat
+--> Across subjects: 
+	1. significant upregulation for each network
+	2. Correlation of PCAdim and cortical PCAdim for each network
+	3. Correlation of PCAdim and corticothalamic power difference for each network
