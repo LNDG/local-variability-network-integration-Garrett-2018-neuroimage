@@ -49,6 +49,7 @@
  This script will perform brain extraction of anatomical images. Individual parameters are provided in separate file contained in scripts folder.
  
  Input: /NKI_enhanced_rest/A_preproc/RAW/<ID>/anat/mprage.nii.gz
+ 
  Output: /NKI_enhanced_rest/A_preproc/data/<ID>/anat/mprage_brain.nii.gz
 
 2. **B_0_design_NKI.fsf & B_1_feat_fsl.sh**
@@ -56,7 +57,9 @@
  B_0_design_NKI.fsf is a template design file used for FEAT. The B_1_feat_fsl.sh script performs desired preprocessing procedures, such as smoothing and motion correction.
  
  Subject Design File: /NKI_enhanced_rest/A_preproc/data/<ID>/rest/design_<ID>.fsf
+ 
  Input: /NKI_enhanced_rest/A_preproc/RAW/<ID>/session_1/RfMRI_mx_645/rest.nii.gz
+ 
  Output: /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>.feat
 
 3. **C_BPfilt_restfmri.m**
@@ -64,6 +67,7 @@
  This script uses the rest_fmri toolbox's rest_bandpass function to perform a 10th order bandpass filter on the data.
  
  Input: /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>.feat/filtered_func_data.nii.gz
+ 
  Output: /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt.nii.gz
  
 4. **D_ICA_fsl.sh**
@@ -71,6 +75,7 @@
  This script performs ICA decomposition. 
 
  Input: /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt.nii.gz
+ 
  Output: /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt.ica
  
 5. **E_0_rejcomps & E_1_denoise_fsl.sh**
@@ -80,7 +85,9 @@
  **NOTE**: As ICA calculation is probabilistic, the components may change slightly after each run of FSL MELODIC. Therefore, we provided our input images (<ID>_rest_feat_BPfilt.nii.gz) together with the original ICA component output under /NKI_enhanced_rest/A_preproc/D_ICA_results/ together with our denoising decicions: /NKI_enhanced_rest/A_preproc/E_0_rejcomps. 
 
  Text file of components: /NKI_enhanced_rest/A_preproc/scripts/E_0_rejcomps/<ID>_rejcomps.txt
+ 
  Input:  /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt.nii.gz
+ 
  Output: /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt_denoised.nii.gz
   
 6. **F_FLIRT_fsl.sh**
@@ -88,6 +95,7 @@
  This script performs a three step registration procedure. First a functional-to-anatomical registration matrix is created, then an anatomical-to-2mm_MNI matrix. These are then concatenated and the resulting registration matrix is applied to the funtional data.
 
  Input: /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt_denoised.nii.gz
+ 
  Output: /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt_denoised_MNI2mm_flirt.nii.gz
 
 7. **G_detrend_spm8.m**
@@ -95,6 +103,7 @@
  This script performs detrending to the third order (cubic trend) using spm_detrend.
 
  Input: /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt_denoised_MNI2mm_flirt.nii.gz
+ 
  Output: /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt_denoised_MNI2mm_flirt_denoised.nii.gz
  
 ## PLS
@@ -104,6 +113,7 @@
  This script creates session data mat-files for PLS from txt template (NKI_PLS_NKIrest_template_batch_file.txt). It creates the structure of the sessiondata.mat files, needed for PLS. This file structure can then be altered to our needs in later steps and filled with different values of interest.
 
  Template path: /NKI_enhanced_rest/B_PLS/scripts/
+ 
  Output: /NKI_enhanced_rest/B_PLS/SD_NKIrest/MeanBOLD_files/mean_<ID>_NKIrest_BfMRIsessiondata.mat 
 
 2. **B_GMcommonCoords.m**
@@ -111,6 +121,7 @@
  This script creates a mask of coordinates including only gray matter (GM) coordinates and commonly activated coordinates for all subjects in the sample called final coordinates. Outputs _GMcommoncoords.mat_.
 
  Data path (preprocessed nifti): /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt_denoised_MNI2mm_flirt_denoised.nii.gz
+ 
  Output: /NKI_enhanced_rest/G_standards_masks/GM_mask/GMcommoncoords.mat
 
 3. **C_1_BfMRIsessiondata_creation_power_SD_wholebrain.m**
@@ -118,7 +129,9 @@
  This script performs the 2nd pre-step for PLS: Replace mean activity values by values of interest (SD and sqrtPower). SD values are calculated by taking the standard deviation of each voxel's time series and sqrtPower values are the square roots of the summed power values of the pWelch function (power/frequency decomposition).  
 
  Path of Mean .mat files: NKI_enhanced_rest/B_PLS/SD_NKIrest/MeanBOLD_files/
+ 
  Input (preprocessed nifti): /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt_denoised_MNI2mm_flirt_denoised.nii.gz
+ 
  Output: NKI_enhanced_rest/B_PLS/SD_NKIrest/SD_<ID>_NKIrest_SPMdetrend_BfMRIsessiondata.mat
 
 4. **C_2_BfMRIsessiondata_creation_power_14networks.m**
@@ -126,6 +139,7 @@
  This script creates masks for each network and applies it to subjects' SD_sessiondata.mat matrices. It creates one sessiondata.mat per subject and network, containing only network coordinates and network SD/sqrtPowert values. 
 
  Input: NKI_enhanced_rest/B_PLS/SD_NKIrest/SD_<ID>_NKIrest_SPMdetrend_BfMRIsessiondata.mat
+ 
  Output: NKI_enhanced_rest/B_PLS/SD_NKIrest/14networks_PLS/SD_<ID>_<network>_NKIrest_SPMdetrend_BfMRIsessiondata.mat
 	 
 5. **C_3_BfMRIsessiondata_creation_power_Craddock.m**
@@ -133,7 +147,9 @@
  This script applies Craddock's parcellation scheme (500 parcels and 950 parcels) to the preprocessed niftis. It first calculates median time series per parcel to then subject these median time series to pwelch (for calculating power values) and standard deviation calculation (SD values). It creates one sessiondata.mat per subject, containing the SD/sqrtPowert values of both Craddock parcellations (500 and 950 parcels). 
 
  Path of sessiondatamat.files used as a template: NKI_enhanced_rest/B_PLS/SD_NKIrest/SD_<ID>_NKIrest_SPMdetrend_BfMRIsessiondata.mat
+ 
  Input: preprocessed niftis (/NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt_denoised_MNI2mm_flirt_denoised.nii), Craddock parcellation (/NKI_enhanced_rest/G_standards_masks/craddock_2011_parcellations/tcorr05_2level_all_MNI2mm_NN.nii.gz)
+ 
  Output: NKI_enhanced_rest/B_PLS/SD_NKIrest/Craddock_parcellation/SD_<ID>_NKIrest_SPMdetrend_Craddock_BfMRIsessiondata.mat
 	 
 ## Dimensionality
@@ -147,6 +163,7 @@
  This script calculates whole brain PCA (principal component analysis) and determines how many components/dimensions are needed to account for 90% of variability.
  
  Input: /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt_denoised_MNI2mm_flirt_denoised.nii.gz
+ 
  Output: /NKI_enhanced_rest/C_Dimensionality/PCAdimSPAT_wholebrain/NKI_<ID>_spatialPCAcorr_90variance.mat
  
 2. **B_PCA_factor_calculation_90perc_Craddock.m**
@@ -154,6 +171,7 @@
  This script subjects Craddock's brain parcels to PCA (principal component analysis) and determines how many components/dimensions are needed to account for 90% of variability. Therefore,  median time series are calculated as a first step per parcel (for both 500 and 950 parcellations).
  
  Input: /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt_denoised_MNI2mm_flirt_denoised.nii.gz
+ 
  Output: /NKI_enhanced_rest/C_Dimensionality/PCAdimSPAT_wholebrain_craddock/NKI_<ID>_spatialPCAcorr_90variance_craddock500.mat and NKI_<ID>_spatialPCAcorr_90variance_craddock950.mat
 
 3. **C_PCA_factor_calculation_14networks.m**
@@ -188,6 +206,7 @@ This script loads all single subject's mat files (containing the number of PCA d
 This script test thalamocortical upregulation from Horn's thalamic subdivisions to the cortical parts of each of the 14 Shirer networks. 
 
 Input: preprocessed niftis: /NKI_enhanced_rest/A_preproc/data/<ID>/rest/<ID>_rest_feat_BPfilt_denoised_MNI2mm_flirt_denoised.nii.gz; subjects' wholebrain sessiondata.mats: NKI_enhanced_rest/B_PLS/SD_NKIrest/SD_<ID>_NKIrest_SPMdetrend_BfMRIsessiondata.mat; Horn's thalamic subdivisions; Shirer's 14 networks, Harvard-Oxford cortical atlas
+
 Output: NKI_enhanced_rest/D_thalamocortical_upregulation/results/thalamocortical_upregulation_for_ShirerNetworks.mat
 --> Across subjects: 
 	1. significant upregulation for each network
