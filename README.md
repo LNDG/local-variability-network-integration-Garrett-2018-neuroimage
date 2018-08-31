@@ -3,7 +3,7 @@
 
 * This folder contains the scripts used for the different analysis steps reported in:
 
-	* [Garrett, Epp, Perry, & Lindenberger (under review). Local temporal variability reflects functional integration in the human brain](https://www.sciencedirect.com/science/article/pii/S1053811918307171)
+	* [Garrett, Epp, Perry, & Lindenberger (NeuroImage 2018). Local temporal variability reflects functional integration in the human brain](https://www.sciencedirect.com/science/article/pii/S1053811918307171)
 
 * The raw data is publicly available [**here**](http://fcon_1000.projects.nitrc.org/indi/enhanced/download.html)
 
