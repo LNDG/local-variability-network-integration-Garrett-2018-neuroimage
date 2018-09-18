@@ -1,5 +1,5 @@
 % This script extracts power in hub regions of each Shirer network
-%Input: Shirer's functional ROIs that are span pre-defined hub regions
+%Input: Shirer's functional ROIs that span pre-defined hub regions
 %Ouput: median power per hub region
 
 %% Set paths
