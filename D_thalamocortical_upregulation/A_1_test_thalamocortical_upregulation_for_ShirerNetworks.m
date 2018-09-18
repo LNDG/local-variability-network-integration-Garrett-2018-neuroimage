@@ -150,20 +150,20 @@ for i=1:length(SubjectList)
     
 end
 
-% correlate PCAdim and cortical PCAdim for each Shirer network across subjects
-for k=1:length(network_names)
-    Kor_PCAdim_corticalPCAdim(k)=corr(PCAdim(:, k), corticalPCAdim(:, k));   
-end
-
-%% Correlation between PCAdim and corticothalamic power difference for each network
-
-for k=1:length(network_names)
-    Kor_DIFF_cortex_thalamus_PCAdim(k)=corr(PCAdim(:, k), DIFF_cortex_thalamus(:, k));
-end
+% % correlate PCAdim and cortical PCAdim for each Shirer network across subjects
+% for k=1:length(network_names)
+%     Kor_PCAdim_corticalPCAdim(k)=corr(PCAdim(:, k), corticalPCAdim(:, k));   
+% end
+% 
+% %% Correlation between PCAdim and corticothalamic power difference for each network
+% 
+% for k=1:length(network_names)
+%     Kor_DIFF_cortex_thalamus_PCAdim(k)=corr(PCAdim(:, k), DIFF_cortex_thalamus(:, k));
+% end
 
 %% save output matrices
 % for 14 cortical networks and 7 thalamus divisions
 
-save([SAVEPATH, 'thalamocortical_upregulation_for_ShirerNetworks.mat'], 'SubjectList', 'PCAdim', 'cortex_coords', 'network', 'Horn_coords', 'HornPower', 'corticalPower', 'DIFF_cortex_thalamus', 'Kor_DIFF_cortex_thalamus_PCAdim');
+save([SAVEPATH, 'thalamocortical_upregulation_for_ShirerNetworks.mat'], 'SubjectList', 'network', 'cortex_coords', 'PCAdim',  'Horn_coords', 'HornPower', 'corticalPower', 'DIFF_cortex_thalamus');
 
 %end
