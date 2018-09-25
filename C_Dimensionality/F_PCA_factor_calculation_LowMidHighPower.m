@@ -57,7 +57,7 @@ for i = 1:length(SubjectList)
     [B,A]  = butter(filterOrder,low_freqLOW/(Fs/2),'high'); % check order
     data   = filtfilt(B,A,data_raw); clear A B
 
-    %2. low pass filter useing the high cut off
+    %2. low pass filter using the high cut off
     [B,A]  = butter(filterOrder,high_freqLOW/(Fs/2),'low'); % check order  
     data   = filtfilt(B,A,data); clear A B   
     

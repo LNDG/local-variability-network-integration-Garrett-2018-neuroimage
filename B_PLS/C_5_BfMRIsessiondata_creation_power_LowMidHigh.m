@@ -73,7 +73,7 @@ for i=1:length(SubjectList) %loop over subjects
      %% Parameters for pwelch
     Fs=1/0.6449999809;%NKI TR=.645 sec.
     FreqRes=Fs/885;%is 885 total points after removing the first 15 volumes (~10 sec worth of data).
-  %  FreqRes = FreqRes/2; %double the number of bins to get a total number which is dividable by three (three different freq bands)
+    FreqRes = FreqRes/2; %double the number of bins to get a total number which is dividable by three (three different freq bands)
     % manually picked frequency boarders
     % TAKE CARE TO USE ALL DIGITS!!!!
     low_freqLOW = 0.010511102663118;   
